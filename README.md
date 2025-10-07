@@ -38,51 +38,51 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
     {
         // Creates a JFrame (the window for our program)
         frame = new JFrame(TITLE);
-        '''
+        
         // creates a panel to add all the elements to
         mainPanel = new JPanel();
         // sets the layout to none so we can place everything ourselves
         mainPanel.setLayout(null);
         // sets the size of the panel to the size set above
         mainPanel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        '''
+        
         //intialize score and score label
         score = 0;
         scoreLabel = new JLabel("Score: 0");
         scoreLabel.setBounds(0, 0, WIDTH, 50);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         mainPanel.add(scoreLabel);
-        '''
+                
         // intialize buttons and board arrays
         buttons = new JButton[grid_Size][grid_Size];
         board = new int[grid_Size][grid_Size];
-       '''
+       
        //create seperate panel for the game grid
         JPanel gridPanel = new JPanel(new GridLayout(grid_Size,grid_Size));
         gridPanel.setBounds(0, 50, WIDTH, WIDTH);
-       '''
+       
        //set up board and add buttons to the grid panel
         setUpBoard();
         addButtons(gridPanel);
         mainPanel.add(gridPanel);
-        '''
+        
         //Create New Game Button
         JButton newGameButton = new JButton("New Game");
         newGameButton.setBounds(50,460,120,30);
         newGameButton.addActionListener(this);
         newGameButton.setActionCommand("New Game");
         mainPanel.add(newGameButton);
-        '''
+        
         //Create Rules Button
         JButton rulesButton = new JButton("Rules");
         rulesButton.setBounds(200,460,120,30);
         rulesButton.addActionListener(this);
         rulesButton.setActionCommand("Rules");
         mainPanel.add(rulesButton);
-        '''
+        
         // add the main panel to the fram to see it
         frame.add(mainPanel);
-        '''
+        
         // Makes the X button close the program
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // shows the window
@@ -90,11 +90,11 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         // makes the window size enoguh to fit everything added to it
         // this should always be one of the last lines for GUI programs
         frame.pack();
-        '''
+        
         //add key bindings and start a new game
         addKeyBindings();
         startNewGame();
-        '''
+        
         // check if player won the game
         showWinningMessage();
     }
@@ -226,10 +226,10 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         {
             moveDown();
         }
-        '''
+        
         checkGameOver();
         updateBoard();
-       '''
+       
         if(didYouWin())
         {
             showWinningMessage();
@@ -268,14 +268,14 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
     {
         int x = -1;  
         int y = -1; 
-        '''
+        
         // find a random empty position on the board
         while(x == -1 || y ==-1|| board[x][y] !=0) //searching for (board[x][y] ==0)
         {
             x = (int)(Math.random()*grid_Size); // find a row
             y = (int)(Math.random()*grid_Size); // find a column
         }
-        '''
+        
         // set new tile to 2 (90% chance) or a 4 (10% chance)
         if(Math.random() < 0.9) // find value of box (2 or 4)
         {
@@ -295,7 +295,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         {
             int[] newRow = new int[grid_Size]; // create new array to store the non-zero values 
             int position = 0; // position in new row array
-            '''
+            
             //move non-zero tiles to the left
             for(int b = 0; b < grid_Size; b++) 
             {
@@ -304,7 +304,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     newRow[position++] = board[i][b]; 
                 }
             }
-            '''
+            
             // merge adjacent tiles with the same value 
             for(int b = 0; b < position - 1; b++) 
             {
@@ -326,7 +326,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     finalRow[position++] = newRow[b]; 
                 }
             }
-            '''
+            
             //update board with final row
             if(!arrayEquals(board[i], finalRow)) 
             {
@@ -349,7 +349,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         {
             int[] newRow = new int[grid_Size]; // create new row array to store non-zero values
             int position = grid_Size-1; // start from the rightmost position in the new row array
-            '''
+            
             // move non-zero tiles to the right
             for(int b = grid_Size - 1; b >= 0; b--) 
             {
@@ -358,7 +358,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                    newRow[position--] = board[i][b];
                }
             }
-            '''
+            
             // merge adjacent tiles with the same value
             for(int b = grid_Size -1; b > 0; b--)
             {
@@ -370,7 +370,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     moved = true; // indicate that a move has been made
                 }
             }
-            '''
+            
             // move tiles right, after merging again
             int[] finalRow = new int[grid_Size]; // create a final row array
             position = grid_Size - 1; // reset position
@@ -381,7 +381,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     finalRow[position--] = newRow[b];
                 }
             }
-            '''
+            
             // update board with final row
             if(!arrayEquals(board[i],finalRow)) 
             {
@@ -395,7 +395,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
             addNewTile(); 
         }
     }
-    
+   
     // method to move tiles up
     public void moveUp()
     {
@@ -404,7 +404,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         {
             int[] newColumn = new int[grid_Size]; // create a new column array to store non-zero values
             int position = 0; // position in the new column array
-            '''
+            
             // move non-zero tiles up
             for(int i = 0; i < grid_Size; i++) 
             {
@@ -424,11 +424,11 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     moved = true; // indicate that a move was made
                 }
             }
-            '''
+            
             // move tiles up after merging
             int[] finalColumn = new int[grid_Size]; // create a final column array
             position = 0; // reset position
-            '''
+            
             for(int i = 0; i < grid_Size; i++)
             {
                 if(newColumn[i] != 0) 
@@ -436,7 +436,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     finalColumn[position++] = newColumn[i];
                 }
             }
-            '''
+            
             // update board with final column
             if(!columnEquals(b,finalColumn))
             {
@@ -446,7 +446,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     board[i][b] = finalColumn[i]; 
                 }
             }
-         '''   
+            
         }
         // add a new tile if any move occured
         if(moved) 
@@ -462,7 +462,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         {
             int[] newColumn = new int[grid_Size]; // create a new column array to store non-zero values
             int position = grid_Size - 1; // start from bottommost position in new column array
-           '''
+           
             //move non-zero values down
             for(int i = grid_Size - 1; i >= 0; i--) 
             {
@@ -471,7 +471,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     newColumn[position--] = board[i][b];
                 }
             }
-            '''
+            
             //merge adjacent tiles with same value
             for(int i = grid_Size -1; i > 0; i--)
             {
@@ -483,7 +483,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     moved = true;//Row indicate that a move has been made
                 }
             }
-            '''
+            
             // move tiles down after merging
             int[] finalColumn = new int[grid_Size];
             position = grid_Size - 1; 
@@ -494,7 +494,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
                     finalColumn[position--] = newColumn[i];
                 }
             }
-          '''
+          
           // update board with final column  
             if(!columnEquals(b,finalColumn))
             {
@@ -519,7 +519,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         {
             return false;
         }
-        '''
+        
         for(int i = 0; i < array1.length; i++) //check every item in array to check if equal or not
         {
             if(array1[i] != array2[i])
@@ -550,7 +550,7 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
     public void checkGameOver()
     {
      boolean hasZero = false; // check if there is an empty space on board
-     '''
+     
         //loop through each cell in board to check for empty spot
         for(int i = 0; i < grid_Size; i++) // check every row
         {
