@@ -39,14 +39,14 @@ public class MyProgram implements Runnable, ActionListener, KeyListener
         // Creates a JFrame (the window for our program)
         frame = new JFrame(TITLE);
         
-        // creates a panel to add all the elements to
+   // creates a panel to add all the elements to 
         mainPanel = new JPanel();
         // sets the layout to none so we can place everything ourselves
         mainPanel.setLayout(null);
         // sets the size of the panel to the size set above
         mainPanel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         
-        //intialize score and score label
+   //intialize score and score label
         score = 0;
         scoreLabel = new JLabel("Score: 0");
         scoreLabel.setBounds(0, 0, WIDTH, 50);
